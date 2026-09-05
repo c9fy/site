@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C9fy — Plataforma de treinamento corporativo</title>
+    <meta name="description" content="C9fy é a plataforma de treinamento corporativo, web e aplicativo. Cursos, trilhas, certificados e relatórios em um só lugar.">
+    <meta property="og:title" content="C9fy — Plataforma de treinamento corporativo">
+    <meta property="og:description" content="Cursos, trilhas, certificados e relatórios em um só lugar. Web e aplicativo.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://c9fy.com.br">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'><circle cx='64' cy='42' r='24' fill='none' stroke='%23081C38' stroke-width='15' stroke-linecap='round'/><path d='M 88 42 C 90 76 74 99 34 101' fill='none' stroke='%232E6BFF' stroke-width='15' stroke-linecap='round'/><circle cx='30' cy='101.5' r='10' fill='%23FFC24B'/></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+    <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+
+    body{
+    font-family:'Bricolage Grotesque',sans-serif;
+    background:#F4F1FB;
+    color:#081C38;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:56px 28px;
+    position:relative;
+    overflow-x:hidden;
+    }
+
+    /* Grafismo do arco no fundo */
+    .arco{
+    position:fixed;
+    right:-180px;
+    top:-160px;
+    width:620px;
+    height:620px;
+    opacity:.10;
+    pointer-events:none;
+    z-index:0;
+    }
+    .arco-2{
+    position:fixed;
+    left:-260px;
+    bottom:-280px;
+    width:640px;
+    height:640px;
+    opacity:.07;
+    transform:rotate(180deg);
+    pointer-events:none;
+    z-index:0;
+    }
+
+    .container{
+    max-width:760px;
+    width:100%;
+    position:relative;
+    z-index:1;
+    }
+
+    /* Lockup */
+    .lockup{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-bottom:72px;
+    animation:up .7s ease both;
+    }
+    .lockup span{
+    font-weight:800;
+    font-size:24px;
+    letter-spacing:-0.02em;
+    }
+
+    /* Eyebrow */
+    .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:#8B85A6;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:22px;
+    animation:up .7s ease .05s both;
+    }
+    .dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#FFC24B;
+    animation:pulse 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+    h1{
+    font-size:clamp(40px,7vw,76px);
+    font-weight:800;
+    letter-spacing:-0.03em;
+    line-height:1.02;
+    margin-bottom:28px;
+    max-width:16ch;
+    animation:up .7s ease .12s both;
+    }
+    h1 em{
+    font-style:normal;
+    color:#2E6BFF;
+    }
+
+    .lead{
+    font-size:clamp(16px,2.2vw,19px);
+    line-height:1.65;
+    color:#5F5B76;
+    max-width:56ch;
+    margin-bottom:64px;
+    animation:up .7s ease .2s both;
+    }
+
+    /* Recursos */
+    .recursos{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+    gap:1px;
+    background:#E2DDF0;
+    border:1px solid #E2DDF0;
+    border-radius:18px;
+    overflow:hidden;
+    margin-bottom:64px;
+    animation:up .7s ease .28s both;
+    }
+    .recurso{
+    background:#fff;
+    padding:26px 24px;
+    }
+    .recurso b{
+    display:block;
+    font-size:15px;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    margin-bottom:7px;
+    }
+    .recurso p{
+    font-size:13.5px;
+    line-height:1.55;
+    color:#5F5B76;
+    }
+    .marca{
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:#2E6BFF;
+    display:block;
+    margin-bottom:16px;
+    }
+    .recurso:nth-child(3) .marca{background:#FFC24B}
+
+    /* Rodapé */
+    .rodape{
+    padding-top:32px;
+    border-top:1px solid #E2DDF0;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:14px;
+    animation:up .7s ease .36s both;
+    }
+    .contato{
+    font-size:14.5px;
+    color:#5F5B76;
+    }
+    .contato a{
+    color:#081C38;
+    text-decoration:none;
+    border-bottom:1.5px solid #2E6BFF;
+    padding-bottom:2px;
+    transition:color .2s ease;
+    }
+    .contato a:hover{color:#2E6BFF}
+    .assinatura{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:#8B85A6;
+    }
+
+    @keyframes up{
+    from{opacity:0;transform:translateY(18px)}
+    to{opacity:1;transform:translateY(0)}
+    }
+
+    @media (max-width:560px){
+    body{padding:44px 22px}
+    .lockup{margin-bottom:52px}
+    .lead{margin-bottom:44px}
+    .recursos{margin-bottom:44px}
+    }
+
+    @media (prefers-reduced-motion:reduce){
+    *{animation:none !important}
+    }
+    </style>
+    </head>
+    <body>
+
+    <svg class="arco" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="64" cy="42" r="24" fill="none" stroke="#081C38" stroke-width="13" stroke-linecap="round"/>
+    <path d="M 88 42 C 90 76 74 99 34 101" fill="none" stroke="#2E6BFF" stroke-width="13" stroke-linecap="round"/>
+    <circle cx="30" cy="101.5" r="8.5" fill="#FFC24B"/>
+    </svg>
+    <svg class="arco-2" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="64" cy="42" r="24" fill="none" stroke="#081C38" stroke-width="13" stroke-linecap="round"/>
+    <path d="M 88 42 C 90 76 74 99 34 101" fill="none" stroke="#2E6BFF" stroke-width="13" stroke-linecap="round"/>
+    <circle cx="30" cy="101.5" r="8.5" fill="#FFC24B"/>
+    </svg>
+
+    <div class="container">
+
+    <div class="lockup">
+        <svg width="40" height="40" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-label="C9fy">
+        <circle cx="64" cy="42" r="21" fill="none" stroke="#081C38" stroke-width="12" stroke-linecap="round"/>
+        <path d="M 85 42 C 87 72 70 93 38 95" fill="none" stroke="#2E6BFF" stroke-width="12" stroke-linecap="round"/>
+        <circle cx="34" cy="95.5" r="7.5" fill="#FFC24B"/>
+        </svg>
+        <span>c9fy</span>
+    </div>
+
+    <div class="eyebrow"><span class="dot"></span>Em construção</div>
+
+    <h1>O treinamento da sua empresa, <em>fora da planilha.</em></h1>
+
+    <p class="lead">
+        A C9fy é a plataforma de treinamento corporativo em web e aplicativo. Cursos, trilhas,
+        certificados e relatórios em um só lugar — configurados pelo próprio RH, sem abrir chamado
+        e sem esperar fornecedor. O site completo chega em breve.
+    </p>
+
+    <div class="recursos">
+        <div class="recurso">
+        <span class="marca"></span>
+        <b>Cursos e trilhas</b>
+        <p>Vídeo, PDF, apresentação, texto e link. Trilhas obrigatórias e eletivas.</p>
+        </div>
+        <div class="recurso">
+        <span class="marca"></span>
+        <b>Web e aplicativo</b>
+        <p>Mesma plataforma no navegador e no celular, com progresso sincronizado.</p>
+        </div>
+        <div class="recurso">
+        <span class="marca"></span>
+        <b>Carga horária automática</b>
+        <p>A plataforma soma a duração dos conteúdos e monta a carga sozinha.</p>
+        </div>
+        <div class="recurso">
+        <span class="marca"></span>
+        <b>Avaliações e certificados</b>
+        <p>Quiz por conteúdo e certificado com código de validação público.</p>
+        </div>
+        <div class="recurso">
+        <span class="marca"></span>
+        <b>Relatórios gerenciais</b>
+        <p>Progresso e conclusão por pessoa, área e treinamento, com visão da liderança.</p>
+        </div>
+        <div class="recurso">
+        <span class="marca"></span>
+        <b>SSO e notificações</b>
+        <p>Acesso corporativo único, com avisos por e-mail e WhatsApp.</p>
+        </div>
+    </div>
+
+    <div class="rodape">
+        <p class="contato">Fale com a gente: <a href="mailto:vcapelos@gmail.com">vcapelos@gmail.com</a></p>
+        <span class="assinatura">c9fy.com.br</span>
+    </div>
+
+    </div>
+
+    </body>
+</html>
