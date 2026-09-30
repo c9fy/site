@@ -1,282 +1,258 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>C9fy — O seu LMS</title>
-    <meta name="description" content="C9fy é a plataforma de treinamento corporativo, web e aplicativo. Cursos, trilhas, certificados e relatórios em um só lugar.">
-    <meta property="og:title" content="C9fy — Plataforma de treinamento corporativo">
-    <meta property="og:description" content="Cursos, trilhas, certificados e relatórios em um só lugar. Web e aplicativo.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://c9fy.com.br">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'><circle cx='64' cy='42' r='24' fill='none' stroke='%23081C38' stroke-width='15' stroke-linecap='round'/><path d='M 88 42 C 90 76 74 99 34 101' fill='none' stroke='%232E6BFF' stroke-width='15' stroke-linecap='round'/><circle cx='30' cy='101.5' r='10' fill='%23FFC24B'/></svg>">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-    <style>
-    *{margin:0;padding:0;box-sizing:border-box}
-
-    body{
-    font-family:'Bricolage Grotesque',sans-serif;
-    background:#F4F1FB;
-    color:#081C38;
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:56px 28px;
-    position:relative;
-    overflow-x:hidden;
-    }
-
-    /* Grafismo do arco no fundo */
-    .arco{
-    position:fixed;
-    right:-180px;
-    top:-160px;
-    width:620px;
-    height:620px;
-    opacity:.10;
-    pointer-events:none;
-    z-index:0;
-    }
-    .arco-2{
-    position:fixed;
-    left:-260px;
-    bottom:-280px;
-    width:640px;
-    height:640px;
-    opacity:.07;
-    transform:rotate(180deg);
-    pointer-events:none;
-    z-index:0;
-    }
-
-    .container{
-    max-width:760px;
-    width:100%;
-    position:relative;
-    z-index:1;
-    }
-
-    /* Lockup */
-    .lockup{
-    display:flex;
-    align-items:center;
-    gap:14px;
-    margin-bottom:72px;
-    animation:up .7s ease both;
-    }
-    .lockup span{
-    font-weight:800;
-    font-size:24px;
-    letter-spacing:-0.02em;
-    }
-
-    /* Eyebrow */
-    .eyebrow{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:12px;
-    letter-spacing:.18em;
-    text-transform:uppercase;
-    color:#8B85A6;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    margin-bottom:22px;
-    animation:up .7s ease .05s both;
-    }
-    .dot{
-    width:7px;
-    height:7px;
-    border-radius:50%;
-    background:#FFC24B;
-    animation:pulse 2.4s ease-in-out infinite;
-    }
-    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
-
-    h1{
-    font-size:clamp(40px,7vw,76px);
-    font-weight:800;
-    letter-spacing:-0.03em;
-    line-height:1.02;
-    margin-bottom:28px;
-    max-width:16ch;
-    animation:up .7s ease .12s both;
-    }
-    h1 em{
-    font-style:normal;
-    color:#2E6BFF;
-    }
-
-    .lead{
-    font-size:clamp(16px,2.2vw,19px);
-    line-height:1.65;
-    color:#5F5B76;
-    max-width:56ch;
-    margin-bottom:64px;
-    animation:up .7s ease .2s both;
-    }
-
-    /* Recursos */
-    .recursos{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
-    gap:1px;
-    background:#E2DDF0;
-    border:1px solid #E2DDF0;
-    border-radius:18px;
-    overflow:hidden;
-    margin-bottom:64px;
-    animation:up .7s ease .28s both;
-    }
-    .recurso{
-    background:#fff;
-    padding:26px 24px;
-    }
-    .recurso b{
-    display:block;
-    font-size:15px;
-    font-weight:600;
-    letter-spacing:-0.01em;
-    margin-bottom:7px;
-    }
-    .recurso p{
-    font-size:13.5px;
-    line-height:1.55;
-    color:#5F5B76;
-    }
-    .marca{
-    width:6px;
-    height:6px;
-    border-radius:50%;
-    background:#2E6BFF;
-    display:block;
-    margin-bottom:16px;
-    }
-    .recurso:nth-child(3) .marca{background:#FFC24B}
-
-    /* Rodapé */
-    .rodape{
-    padding-top:32px;
-    border-top:1px solid #E2DDF0;
-    display:flex;
-    flex-wrap:wrap;
-    align-items:baseline;
-    justify-content:space-between;
-    gap:14px;
-    animation:up .7s ease .36s both;
-    }
-    .contato{
-    font-size:14.5px;
-    color:#5F5B76;
-    }
-    .contato a{
-    color:#081C38;
-    text-decoration:none;
-    border-bottom:1.5px solid #2E6BFF;
-    padding-bottom:2px;
-    transition:color .2s ease;
-    }
-    .contato a:hover{color:#2E6BFF}
-    .assinatura{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:11.5px;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-    color:#8B85A6;
-    }
-
-    @keyframes up{
-    from{opacity:0;transform:translateY(18px)}
-    to{opacity:1;transform:translateY(0)}
-    }
-
-    @media (max-width:560px){
-    body{padding:44px 22px}
-    .lockup{margin-bottom:52px}
-    .lead{margin-bottom:44px}
-    .recursos{margin-bottom:44px}
-    }
-
-    @media (prefers-reduced-motion:reduce){
-    *{animation:none !important}
-    }
-    </style>
-    </head>
-    <body>
-
-    <svg class="arco" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="64" cy="42" r="24" fill="none" stroke="#081C38" stroke-width="13" stroke-linecap="round"/>
-    <path d="M 88 42 C 90 76 74 99 34 101" fill="none" stroke="#2E6BFF" stroke-width="13" stroke-linecap="round"/>
-    <circle cx="30" cy="101.5" r="8.5" fill="#FFC24B"/>
-    </svg>
-    <svg class="arco-2" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="64" cy="42" r="24" fill="none" stroke="#081C38" stroke-width="13" stroke-linecap="round"/>
-    <path d="M 88 42 C 90 76 74 99 34 101" fill="none" stroke="#2E6BFF" stroke-width="13" stroke-linecap="round"/>
-    <circle cx="30" cy="101.5" r="8.5" fill="#FFC24B"/>
-    </svg>
-
-    <div class="container">
-
-    <div class="lockup">
-        <svg width="40" height="40" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-label="C9fy">
-        <circle cx="64" cy="42" r="21" fill="none" stroke="#081C38" stroke-width="12" stroke-linecap="round"/>
-        <path d="M 85 42 C 87 72 70 93 38 95" fill="none" stroke="#2E6BFF" stroke-width="12" stroke-linecap="round"/>
-        <circle cx="34" cy="95.5" r="7.5" fill="#FFC24B"/>
-        </svg>
-        <span>c9fy</span>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>C9fy · Sua empresa já sabe ensinar. Faltava o lugar.</title>
+  <meta name="description" content="A C9fy Academy é a universidade corporativa que o RH monta e muda sozinho: trilhas, cursos, carga horária e certificado, no celular de cada pessoa, com a marca da sua empresa.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="C9fy">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="C9fy · Sua empresa já sabe ensinar. Faltava o lugar.">
+  <meta property="og:description" content="A C9fy Academy é a universidade corporativa que o RH monta e muda sozinho: trilhas, cursos, carga horária e certificado, no celular de cada pessoa, com a marca da sua empresa.">
+  <meta property="og:url" content="https://c9fy.com/">
+  <meta property="og:image" content="https://c9fy.com/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#F4F1FB">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&amp;family=IBM+Plex+Mono:wght@500;600&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <noscript><style>.nav__links{display:flex!important;position:static!important;flex-direction:row!important;gap:8px 20px!important;padding:0!important;border:0!important;box-shadow:none!important}.nav__toggle{display:none!important}</style></noscript>
+</head>
+<body>
+<header class="site-header">
+  <nav class="container nav" aria-label="Principal">
+    <a class="brand" href="index.html" aria-current="page"><svg width="30" height="30" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><circle cx="64" cy="42" r="21" fill="none" stroke="#081C38" stroke-width="12" stroke-linecap="round"></circle><path d="M 85 42 C 87 72 70 93 38 95" fill="none" stroke="#2E6BFF" stroke-width="12" stroke-linecap="round"></path><circle cx="34" cy="95.5" r="7.5" fill="#FFC24B"></circle></svg><span>c9fy</span></a>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+    <ul class="nav__links" id="menu">
+      <li><a href="produtos.html#ciclo">Ciclo</a></li>
+      <li><a href="produtos.html#academy">Academy</a></li>
+      <li><a href="produtos.html#pdi">PDI &amp; 1:1</a></li>
+      <li><a href="produtos.html#feedback">Feedback</a></li>
+      <li><a href="sobre.html">Sobre</a></li>
+      <li><a class="btn btn--navy" href="comunidade.html">Construa com a gente</a></li>
+    </ul>
+  </nav>
+</header>
+<main>
+<section class="hero container">
+  <div class="hero__grid">
+    <div>
+      <span class="eyebrow eyebrow--pill">Academy · disponível agora</span>
+      <h1 class="display">Sua empresa já sabe ensinar. <span class="accent">Faltava o lugar.</span></h1>
+      <p class="lead">A C9fy Academy é a universidade corporativa que o RH monta e muda sozinho: trilhas, cursos, carga horária e certificado, no celular de cada pessoa, com a marca da sua empresa. É o primeiro produto de uma plataforma de gente que está nascendo.</p>
+      <div class="actions">
+        <a class="btn btn--primary" href="comunidade.html">Construa com a gente</a>
+        <a class="btn btn--outline" href="produtos.html#academy">Ver a Academy</a>
+      </div>
     </div>
+    <div class="stack" data-tilt="14" aria-hidden="true"><div class="stack__inner" data-tilt-inner>
+      <img class="stack__ring" src="assets/anel.svg" alt="">
+      <div class="stack__card stack__card--a">
+        <div class="stack__label stack__label--amber">OBRIGATÓRIO · ATÉ 12/09</div>
+        <div class="stack__title">Segurança da informação</div>
+        <div class="stack__meta"><span class="sq"></span><span>vídeo · 18 min</span></div>
+      </div>
+      <div class="stack__card stack__card--b">
+        <div class="stack__label">ELETIVO · TRILHA</div>
+        <div class="stack__title">Comunicação que convence</div>
+        <div class="segs"><span class="on"></span><span class="on"></span><span></span><span></span></div>
+      </div>
+      <div class="stack__card stack__card--c">
+        <div class="stack__label stack__label--honey">TRILHA · 6H · 4 MÓDULOS</div>
+        <div class="stack__title">Liderar pela primeira vez</div>
+        <div class="bar"><span class="w55"></span></div>
+        <div class="stack__note">3h20 de 6h · continuar de onde parou</div>
+      </div>
+      <div class="chip"><img src="assets/icons/check.svg" alt=""><div><strong>Certificado emitido</strong><small>Código de conduta · hoje, 14:02</small></div></div>
+    </div></div>
+  </div>
+</section>
 
-    <div class="eyebrow"><span class="dot"></span>Em construção</div>
-
-    <h1>O treinamento da sua empresa, <em>fora da planilha.</em></h1>
-
-    <p class="lead">
-        A C9fy é a plataforma de treinamento corporativo em web e aplicativo. Cursos, trilhas,
-        certificados e relatórios em um só lugar — configurados pelo próprio RH, sem abrir chamado
-        e sem esperar fornecedor. O site completo chega em breve.
-    </p>
-
-    <div class="recursos">
-        <div class="recurso">
-        <span class="marca"></span>
-        <b>Cursos e trilhas</b>
-        <p>Vídeo, PDF, apresentação, texto e link. Trilhas obrigatórias e eletivas.</p>
-        </div>
-        <div class="recurso">
-        <span class="marca"></span>
-        <b>Web e aplicativo</b>
-        <p>Mesma plataforma no navegador e no celular, com progresso sincronizado.</p>
-        </div>
-        <div class="recurso">
-        <span class="marca"></span>
-        <b>Carga horária automática</b>
-        <p>A plataforma soma a duração dos conteúdos e monta a carga sozinha.</p>
-        </div>
-        <div class="recurso">
-        <span class="marca"></span>
-        <b>Avaliações e certificados</b>
-        <p>Quiz por conteúdo e certificado com código de validação público.</p>
-        </div>
-        <div class="recurso">
-        <span class="marca"></span>
-        <b>Relatórios gerenciais</b>
-        <p>Progresso e conclusão por pessoa, área e treinamento, com visão da liderança.</p>
-        </div>
-        <div class="recurso">
-        <span class="marca"></span>
-        <b>SSO e notificações</b>
-        <p>Acesso corporativo único, com avisos por e-mail e WhatsApp.</p>
-        </div>
+<section class="manifesto">
+  <img class="manifesto__mark" src="assets/marca-fundo.svg" alt="" aria-hidden="true">
+  <div class="container">
+    <span class="eyebrow eyebrow--light">Por que a gente existe</span>
+    <h2 class="h2 h2--xl">Toda empresa treina gente. Quase nenhuma sabe quem aprendeu o quê.</h2>
+    <div class="manifesto__cols">
+      <p>O treinamento acontece: um PDF por e-mail, um vídeo no drive, uma palestra que ninguém registrou. Na hora da auditoria ou do planejamento, o RH abre a planilha de horas e monta tudo à mão.</p>
+      <p>A gente começou pelo Academy para que conteúdo, matrícula, prazo e certificado morem no mesmo lugar. O RH sobe, define quem precisa e acompanha. A pessoa abre no celular. E esse é só o primeiro processo que vamos tirar da planilha.</p>
+      <p class="strong">Um RH enxuto não precisa de mais um sistema pesado. Precisa de ferramentas que rodam sozinhas e devolvem tempo para cuidar de gente.</p>
     </div>
+  </div>
+</section>
 
-    <div class="rodape">
-        <p class="contato">Fale com a gente: <a href="mailto:vcapelos@gmail.com">vcapelos@gmail.com</a></p>
-        <span class="assinatura">c9fy.com.br</span>
+<section class="section container" id="produtos">
+  <div class="section-head">
+    <div>
+      <span class="eyebrow">Os produtos</span>
+      <h2 class="h2">A Academy está no ar. O resto do ciclo vem aí.</h2>
     </div>
+    <span class="hint">↻ passe o mouse para virar</span>
+  </div>
+  <div class="grid-cards">
+    <article class="flip" data-tilt="9" tabindex="0">
+      <div class="flip__inner" data-tilt-inner>
+        <div class="flip__face flip__front">
+          <div class="flip__top"><span class="tag">01 · CICLO</span><span class="badge">NO FUTURO</span></div>
+          <div><h3>Avaliação de desempenho que abre, gira e fecha</h3><div class="flip__turn">↻</div></div>
+        </div>
+        <div class="flip__face flip__back">
+          <span class="tag">01 · CICLO</span>
+          <div><p>Autoavaliação, pares, líder e ascendente. Calibração 9-box com o comitê. Cada etapa com prazo e lembrete, tudo por competência.</p><a href="comunidade.html">Venha construir com a gente →</a></div>
+        </div>
+      </div>
+    </article>
+    <article class="flip" data-tilt="9" tabindex="0">
+      <div class="flip__inner" data-tilt-inner>
+        <div class="flip__face flip__front">
+          <div class="flip__top"><span class="tag tag--electric">02 · ACADEMY</span><span class="badge badge--live">WIP</span></div>
+          <div><h3>A universidade corporativa que o RH monta sozinho</h3><div class="flip__turn">↻</div></div>
+        </div>
+        <div class="flip__face flip__back flip__back--electric">
+          <span class="tag">02 · ACADEMY</span>
+          <div><p>Cursos e trilhas em cinco formatos, obrigatórios ou eletivos. Carga horária que se soma sozinha e certificado com a sua marca.</p><a href="produtos.html#academy">Ver a Academy →</a></div>
+        </div>
+      </div>
+    </article>
+    <article class="flip" data-tilt="9" tabindex="0">
+      <div class="flip__inner" data-tilt-inner>
+        <div class="flip__face flip__front">
+          <div class="flip__top"><span class="tag">03 · PDI &amp; 1:1</span><span class="badge">NO FUTURO</span></div>
+          <div><h3>Plano de desenvolvimento e conversas 1:1 no mesmo lugar</h3><div class="flip__turn">↻</div></div>
+        </div>
+        <div class="flip__face flip__back">
+          <span class="tag">03 · PDI &amp; 1:1 (ONE A ONE)</span>
+          <div><p>Metas e ações assinadas por gestor e pessoa. Conversas 1:1 com pauta, registro e próximo passo, sem caderno.</p><a href="comunidade.html">Venha construir com a gente →</a></div>
+        </div>
+      </div>
+    </article>
+    <article class="flip" data-tilt="9" tabindex="0">
+      <div class="flip__inner" data-tilt-inner>
+        <div class="flip__face flip__front">
+          <div class="flip__top"><span class="tag">04 · FEEDBACK</span><span class="badge">NO FUTURO</span></div>
+          <div><h3>Feedback contínuo, com estrutura e histórico</h3><div class="flip__turn">↻</div></div>
+        </div>
+        <div class="flip__face flip__back">
+          <span class="tag">04 · FEEDBACK</span>
+          <div><p>Pedir, dar e registrar feedback a qualquer momento, com estrutura. Tudo fica no histórico da pessoa.</p><a href="comunidade.html">Venha construir com a gente →</a></div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
 
+<section class="section container" id="revolucao">
+  <div class="band" data-tilt="4"><div class="glare" data-glare></div>
+    <img class="band__mark" src="assets/marca-fundo.svg" alt="" aria-hidden="true">
+    <div class="band__grid">
+      <div>
+        <span class="eyebrow eyebrow--light">NO FUTURO · Ciclo, PDI &amp; 1:1 e Feedback</span>
+        <h2 class="h2">Você está disposto a participar dessa revolução no RH?</h2>
+        <p>As próximas frentes estão sendo construídas agora, junto com uma comunidade de RHs que testa antes de todo mundo e decide o que entra. Não é lista de espera: é onde o produto é definido.</p>
+      </div>
+      <div class="band__side">
+        <ul class="checklist">
+          <li>✓ Acesso antecipado às três frentes, sem custo</li>
+          <li>✓ Uma conversa por mês com quem constrói a plataforma</li>
+          <li>✓ Seu processo de hoje vira o padrão de amanhã</li>
+        </ul>
+        <a class="btn btn--honey" href="comunidade.html">Venha construir com a gente</a>
+      </div>
     </div>
+  </div>
+</section>
 
-    </body>
+<section class="section container">
+  <div class="steps-head">
+    <div>
+      <span class="eyebrow">Como funciona</span>
+      <h2 class="h2">Três passos. Sem projeto de implantação.</h2>
+    </div>
+    <p>Você não precisa de consultoria nem de time de TI. O primeiro conteúdo e a primeira trilha a gente sobe com você, na mesma call.</p>
+  </div>
+  <ol class="grid-cards">
+    <li class="step"><div class="step__num">01</div><h3>Suba o conteúdo</h3><p>Vídeo, PDF, apresentação, texto ou link. Arraste, dê nome, pronto. A duração é lida sozinha.</p></li>
+    <li class="step"><div class="step__num">02</div><h3>Diga quem precisa</h3><p>Por cargo, área ou pessoa. Obrigatório ou eletivo, com prazo. Quem entra na empresa já recebe o que é do cargo.</p></li>
+    <li class="step"><div class="step__num">03</div><h3>Acompanhe</h3><p>Quem começou, quem concluiu, quem atrasou. O lembrete sai sozinho; o certificado também.</p></li>
+  </ol>
+</section>
+
+<section class="section container">
+  <div class="band band__grid">
+    <div>
+      <span class="eyebrow eyebrow--light">No celular de cada pessoa</span>
+      <h2 class="h2 h2--md">Comece e termine onde quiser.</h2>
+      <p class="mb">A Academy vive no app da sua empresa, com o seu logo e as suas cores. Trilhas, carrosseis customizados por você. Com emissão de certificados.</p>
+      <ul class="checklist">
+        <li>✓ iOS e Android, publicado nas lojas com a sua marca</li>
+        <li>✓ Login único (SSO) com o e-mail da empresa</li>
+        <li>✓ Funciona igual no navegador, para quem não tem celular corporativo</li>
+      </ul>
+    </div>
+    <div class="phone-wrap">
+      <div class="phone" data-tilt="8" aria-hidden="true"><div class="glare" data-glare></div>
+        <div class="phone__screen">
+          <div class="phone__head"><div class="phone__greet">BOA TARDE, JÚLIA</div><div class="phone__title">Continuar de onde parou</div></div>
+          <div class="phone__feature">
+            <div class="lbl">TRILHA · ELETIVA</div>
+            <div class="ttl">Liderar pela primeira vez</div>
+            <div class="bar"><span class="w55"></span></div>
+            <div class="note">3h20 de 6h · módulo 3 de 4</div>
+          </div>
+          <div class="phone__section">Obrigatórios</div>
+          <ul class="phone__list">
+            <li class="prow"><span class="prow__ic"></span><div class="prow__body"><div class="prow__name">Segurança da informação</div><div class="prow__meta">vídeo · 18 min</div></div><span class="prow__end">até 12/09</span></li>
+            <li class="prow"><span class="prow__ic prow__ic--honey"></span><div class="prow__body"><div class="prow__name">Código de conduta</div><div class="prow__meta">PDF · 12 páginas</div></div><span class="prow__end prow__end--electric">✓</span></li>
+            <li class="prow"><span class="prow__ic prow__ic--navy"></span><div class="prow__body"><div class="prow__name">Onboarding · cultura</div><div class="prow__meta">trilha · 2h</div></div><span class="prow__end prow__end--electric">✓</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--pb container">
+  <h2 class="sr-only">Para quem</h2>
+  <div class="grid-cards">
+    <article class="card" data-tilt="7"><div class="glare" data-glare></div><div class="card__icon"><img src="assets/icons/pessoa.svg" alt=""></div><h3>Para o RH</h3><p>Um admin que muda tudo na hora e um relatório pronto para a auditoria. Configurado por você, sem chamado.</p></article>
+    <article class="card" data-tilt="7"><div class="glare" data-glare></div><div class="card__icon"><img src="assets/icons/grade.svg" alt=""></div><h3>Para quem lidera</h3><p>Uma tela com o time: quem concluiu o obrigatório, quem está avançando na trilha, quem precisa de um empurrão.</p></article>
+    <article class="card" data-tilt="7"><div class="glare" data-glare></div><div class="card__icon"><img src="assets/icons/ciclo.svg" alt=""></div><h3>Para cada pessoa</h3><p>Continuar de onde parou, no celular. Saber o que é obrigatório e o que é escolha. Certificado no bolso quando termina.</p></article>
+  </div>
+</section>
+
+<section class="cta cta--tight">
+  <div class="container">
+    <div class="cta__box" data-tilt="4"><div class="glare" data-glare></div>
+      <img class="cta__arc" src="assets/arco.svg" alt="" aria-hidden="true">
+      <h2>Venha fazer parte dessa revolução no RH.</h2>
+      <p>A Academy já está no ar. O resto da plataforma está sendo construído junto com RHs como você. Entre na comunidade e ajude a decidir o que vem.</p>
+      <a class="btn btn--white" href="comunidade.html">Construa com a gente</a>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="container footer">
+    <a class="footer__brand" href="index.html"><svg width="26" height="26" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><circle cx="64" cy="42" r="21" fill="none" stroke="#081C38" stroke-width="12" stroke-linecap="round"></circle><path d="M 85 42 C 87 72 70 93 38 95" fill="none" stroke="#2E6BFF" stroke-width="12" stroke-linecap="round"></path><circle cx="34" cy="95.5" r="7.5" fill="#FFC24B"></circle></svg><span>c9fy</span><span class="footer__tag">· o ciclo que gira com a sua gente</span></a>
+    <ul class="footer__links">
+      <li><a href="index.html">Início</a></li>
+      <li><a href="produtos.html#ciclo">Ciclo</a></li>
+      <li><a href="produtos.html#academy">Academy</a></li>
+      <li><a href="produtos.html#pdi">PDI &amp; 1:1</a></li>
+      <li><a href="produtos.html#feedback">Feedback</a></li>
+      <li><a href="sobre.html">Sobre</a></li>
+      <li><a href="comunidade.html">Comunidade</a></li>
+      <li><a href="mailto:contato@c9fy.com">Contato</a></li>
+    </ul>
+    <span class="footer__copy">© 2026 C9fy</span>
+  </div>
+</footer>
+<script src="script.js" defer></script>
+</body>
 </html>
